@@ -2,26 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
 </head>
 <body>
-    <h1>Weather Checker</h1>
+    <h1>Weather Forecast</h1>
     <form method="post">
-        <input type="text" name="city" placeholder="Enter a city name">
-        <button type="submit">Check Weather</button>
+        <label for="city">Enter City:</label>
+        <input type="text" id="city" name="city">
+        <button type="submit">Get Weather</button>
     </form>
     {% if weather %}
-        <h2>Current Weather in {{ weather.name }}</h2>
-        <p>{{ weather.weather[0].description }}</p>
-        <p>Temperature: {{ weather.main.temp }}°C</p>
-        <p>Humidity: {{ weather.main.humidity }}%</p>
-        {% if forecast %}
-            <h3>5-Day Forecast:</h3>
-            {% for item in forecast.list %}
-                <p>{{ item.dt_txt }}: {{ item.weather[0].description }}, Temp: {{ item.main.temp }}°C</p>
-            {% endfor %}
-        {% endif %}
+        <h2>Current Weather for {{ weather['name'] }}</h2>
+        <p>Temperature: {{ weather['main']['temp'] }}°C</p>
+        <p>Weather: {{ weather['weather'][0]['description'] }}</p>
+    {% endif %}
+    {% if forecast %}
+        <img src="/forecast.png?city={{ request.form['city'] }}" alt="Forecast plot">
     {% endif %}
 </body>
 </html>
